@@ -35,7 +35,7 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(({ spell }, ref) => {
     }
 
     return (
-        <dialog className='rounded p-6 w-1/2 animate-slideIn' ref={modalRef}>
+        <dialog className='rounded p-6 min-w-4 max-w-4xl animate-slideIn' ref={modalRef}>
             <section className='flex items-center mb-5'>
                 <h1 className='text-xl font-medium'>{spell.name}</h1>
                 <p className='ml-5 border bg-green-950 text-white px-2 py-1 rounded'>Level {spell.level}</p>
