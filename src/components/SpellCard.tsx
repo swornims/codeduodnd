@@ -25,8 +25,9 @@ const SpellCard: React.FC<SpellCardProps> = ({ spell }) => {
     return (
         <>
             <Modal ref={modalRef} spell={selectedSpell} />
-            <li onClick={() => spellDetailHandler(spell.url)}>
+            <li className='list-none flex border m-2 px-4 py-2 rounded hover:bg-violet-600 hover:text-white cursor-pointer' onClick={() => spellDetailHandler(spell.url)}>
                 <h3>{spell.name}</h3>
+                <p className='ml-3 text-red'>{spell.level}</p>
             </li>
         </>
     );

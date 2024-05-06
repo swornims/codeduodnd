@@ -5,11 +5,13 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
-    <FavoritesContextProvider>
-      <Navbar />
-      <FavoriteSpell />
-      <Spells />
-    </FavoritesContextProvider>
+    <div className='my-6 mx-10'>
+      <FavoritesContextProvider>
+        <Navbar />
+        <FavoriteSpell />
+        <Spells />
+      </FavoritesContextProvider>
+    </div>
   );
 }
 

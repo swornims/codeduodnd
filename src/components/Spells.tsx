@@ -1,10 +1,8 @@
 import React from 'react';
 import { Spell, SpellsResponse } from '../models/spell';
 import SpellCard from './SpellCard';
-import classes from '../styles/spells.module.css';
 
 const EachSpell = () => {
-
   const [spells, setSpells] = React.useState<Spell[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
@@ -29,13 +27,12 @@ const EachSpell = () => {
     fetchSpells();
   }, []);
 
-
   return (
     <>
-      <h1>All Spells</h1>
+      <h1 className='text-lg'>All Spells</h1>
       {isLoading && <p>Loading spells</p>}
       {!isLoading && <div>
-        <ul className={classes.container}>
+        <ul className='container flex flex-wrap'>
           {spells.map(spell => (
             <SpellCard key={spell.index} spell={spell} />
           ))}
