@@ -29,7 +29,7 @@ const EachSpell = () => {
 
   return (
     <>
-      <h1 className='text-lg'>All Spells</h1>
+      <h1 className='text-3xl ml-3 mb-5'>All Spells</h1>
       {isLoading && <p>Loading spells</p>}
       {!isLoading && <div>
         <ul className='container flex flex-wrap'>

@@ -4,6 +4,7 @@ import { Spell } from '../models/spell';
 type FavoritesContextType = {
     favorites: Spell[];
     addFav: (spell: Spell) => void;
+    removeFav: (index: string) => void;
 }
 
 interface Props {
@@ -12,7 +13,8 @@ interface Props {
 
 export const FavoritesContext = React.createContext<FavoritesContextType>({
     favorites: [],
-    addFav: () => { }
+    addFav: () => { },
+    removeFav: () => { }
 });
 
 const FavoritesContextProvider: React.FC<Props> = ({ children }) => {
@@ -27,13 +29,18 @@ const FavoritesContextProvider: React.FC<Props> = ({ children }) => {
 
     const addFavoriteHandler = (spell: Spell) => {
         if (!favorites.some(f => f.index === spell.index)) {
-            setFavorites([...favorites, spell]);
+            setFavorites((prevFavorites) => [...prevFavorites, spell]);
         }
     };
 
+    const removeFavoriteHandler = (index: any) => {
+        setFavorites((prevFavorites) => prevFavorites.filter((spell) => spell.index !== index))
+    }
+
     const contextValue: FavoritesContextType = {
         favorites: favorites,
-        addFav: addFavoriteHandler
+        addFav: addFavoriteHandler,
+        removeFav: removeFavoriteHandler
     }
 
     return <FavoritesContext.Provider value={contextValue}>

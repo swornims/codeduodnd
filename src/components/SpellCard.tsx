@@ -18,14 +18,14 @@ const SpellCard: React.FC<SpellCardProps> = ({ spell }) => {
         const data = await response.json();
         setSelectedSpell(data);
         if (modalRef.current) {
-            modalRef.current.open();
+            setTimeout(() => modalRef.current?.open(), 0);
         }
     };
 
     return (
         <>
             <Modal ref={modalRef} spell={selectedSpell} />
-            <li className='list-none flex border m-2 px-4 py-2 rounded hover:bg-violet-600 hover:text-white cursor-pointer' onClick={() => spellDetailHandler(spell.url)}>
+            <li className='list-none flex border m-2 px-4 py-2 rounded hover:bg-violet-600 transform transition duration-500 hover:text-white hover:scale-105 cursor-pointer' onClick={() => spellDetailHandler(spell.url)}>
                 <h3>{spell.name}</h3>
                 <p className='ml-3 text-red'>{spell.level}</p>
             </li>
