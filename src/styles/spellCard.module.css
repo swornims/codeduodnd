@@ -1,0 +1,12 @@
+.card {
+    display: flex;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.level {
+    margin: 0 10px;
+}
