@@ -31,8 +31,10 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(({ spell }, ref) => {
     const handleToggleFavorite = () => {
         if (isFavorite) {
             favCtx.removeFav(spell.index)
+            modalRef.current?.close()
         } else {
             favCtx.addFav(spell)
+            modalRef.current?.close()
         }
     }
 
