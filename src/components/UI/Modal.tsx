@@ -1,11 +1,7 @@
 import React from 'react';
 import { FavoritesContext } from '../../store/favorite-context';
 import { Spell } from '../../models/spell';
-
-interface ModalRef {
-    open: () => void;
-    close: () => void;
-}
+import { ModalRef } from '../../models/modal';
 
 interface ModalProps {
     spell: Spell | null;
@@ -39,9 +35,16 @@ const Modal = React.forwardRef<ModalRef, ModalProps>(({ spell }, ref) => {
     }
 
     return (
-        <dialog className='rounded p-6 w-1/2' ref={modalRef}>
-            <h1>{spell.name}{spell.level}</h1>
-            <p>Description: {spell.desc.join(' ')}</p>
+        <dialog className='rounded p-6 w-1/2 animate-slideIn' ref={modalRef}>
+            <section className='flex items-center mb-5'>
+                <h1 className='text-xl font-medium'>{spell.name}</h1>
+                <p className='ml-5 border bg-green-950 text-white px-2 py-1 rounded'>Level {spell.level}</p>
+            </section>
+            <section>
+                <p><strong>Description:</strong> {spell.desc.join(' ')}</p>
+                <p className='my-1'><strong>Range:</strong> {spell.range}</p>
+                <p className='my-1'><strong>Duration:</strong> {spell.duration}</p>
+            </section>
             <button className='px-3 py-1 my-4 border bg-yellow-500 text-white rounded hover:bg-white hover:text-yellow-600 transform transition duration-300 hover:scale-115' onClick={handleToggleFavorite}>
                 {!isFavorite ? 'Add to Favorites' : 'Remove from Favorites'}
             </button>

@@ -1,6 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import Modal from './UI/Modal';
 import { Spell } from '../models/spell';
+import { ModalRef } from '../models/modal';
+import { fetchEachSpell } from '../api';
 
 interface SpellCardProps {
     spell: Spell;
@@ -8,14 +10,10 @@ interface SpellCardProps {
 
 const SpellCard: React.FC<SpellCardProps> = ({ spell }) => {
     const [selectedSpell, setSelectedSpell] = React.useState<Spell | null>(null);
-    const modalRef = useRef<{
-        open: () => void;
-        close: () => void;
-    }>(null);
+    const modalRef = React.useRef<ModalRef>(null);
 
     const spellDetailHandler = async (url: string) => {
-        const response = await fetch('https://www.dnd5eapi.co' + url);
-        const data = await response.json();
+        const data = await fetchEachSpell(url);
         setSelectedSpell(data);
         if (modalRef.current) {
             setTimeout(() => modalRef.current?.open(), 0);
@@ -25,10 +23,10 @@ const SpellCard: React.FC<SpellCardProps> = ({ spell }) => {
     return (
         <>
             <Modal ref={modalRef} spell={selectedSpell} />
-            <li className='list-none flex border m-2 px-4 py-2 rounded hover:bg-violet-600 transform transition duration-500 hover:text-white hover:scale-105 cursor-pointer' onClick={() => spellDetailHandler(spell.url)}>
+            <article className='flex border m-2 px-4 py-2 rounded hover:bg-red-600 transform transition duration-500 hover:text-white hover:scale-105 cursor-pointer' onClick={() => spellDetailHandler(spell.url)}>
                 <h3>{spell.name}</h3>
                 <p className='ml-3 text-red'>{spell.level}</p>
-            </li>
+            </article>
         </>
     );
 };

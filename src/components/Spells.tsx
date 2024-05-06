@@ -1,44 +1,38 @@
 import React from 'react';
-import { Spell, SpellsResponse } from '../models/spell';
+import { Spell } from '../models/spell';
 import SpellCard from './SpellCard';
+import { fetchSpells } from '../api';
 
 const EachSpell = () => {
   const [spells, setSpells] = React.useState<Spell[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    const fetchSpells = async () => {
+    const fetchSpellsData = async () => {
       try {
-        const response = await fetch('https://www.dnd5eapi.co/api/spells');
-        const data: SpellsResponse = await response.json();
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch spells!')
-        }
-
-        setSpells(data.results);
+        const data = await fetchSpells();
+        setSpells(data.results)
       } catch (error) {
-        console.error('Error fetching spells:', error);
+        console.log("Error fetching spells data")
+      } finally {
+        setIsLoading(false)
       }
-
-      setIsLoading(false);
-    };
-
-    fetchSpells();
+    }
+    fetchSpellsData();
   }, []);
 
   return (
-    <>
+    <div>
       <h1 className='text-3xl ml-3 mb-5'>All Spells</h1>
       {isLoading && <p>Loading spells</p>}
-      {!isLoading && <div>
-        <ul className='container flex flex-wrap'>
+      {!isLoading &&
+        <section className='flex flex-wrap'>
           {spells.map(spell => (
             <SpellCard key={spell.index} spell={spell} />
           ))}
-        </ul>
-      </div>}
-    </>
+        </section>
+      }
+    </div>
   )
 }
 

@@ -3,7 +3,9 @@ export interface Spell {
     name: string;
     url: string;
     level: number,
-    desc: Array<string>
+    desc: Array<string>,
+    duration: string,
+    range: string
 }
 
 export interface SpellsResponse {
